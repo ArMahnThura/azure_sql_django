@@ -2,6 +2,10 @@ from django.shortcuts import render
 from .serializers import StoreSerializer
 from .models import Store
 from rest_framework import generics, response, status
+from .models import Product
+from .serializers import ProductSerializer
+from .models import DateRecord
+from .serializers import DateRecordSerializer
 
 # Create your views here.
 
@@ -21,4 +25,39 @@ class StoreDeleteAll(generics.DestroyAPIView):
     def delete(self, request, *args, **kwargs):
         # Delete all Store objects
         Store.objects.all().delete()
+        return response.Response(status=status.HTTP_204_NO_CONTENT)
+    
+    
+class ProductList(generics.ListCreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
+class ProductDetailUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_field = 'product_id'
+
+
+class ProductDeleteAll(generics.DestroyAPIView):
+    def delete(self, request, *args, **kwargs):
+        # Delete all Product objects
+        Product.objects.all().delete()
+        return response.Response(status=status.HTTP_204_NO_CONTENT)
+    
+class DateRecordList(generics.ListCreateAPIView):
+    queryset = DateRecord.objects.all()
+    serializer_class = DateRecordSerializer
+
+
+class DateRecordUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    queryset = DateRecord.objects.all()
+    serializer_class = DateRecordSerializer
+    lookup_field = 'date'
+
+
+class DateRecordDeleteAll(generics.DestroyAPIView):
+    def delete(self, request, *args, **kwargs):
+        # Delete all Product objects
+        DateRecord.objects.all().delete()
         return response.Response(status=status.HTTP_204_NO_CONTENT)
