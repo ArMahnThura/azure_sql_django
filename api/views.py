@@ -44,20 +44,4 @@ class ProductDeleteAll(generics.DestroyAPIView):
         # Delete all Product objects
         Product.objects.all().delete()
         return response.Response(status=status.HTTP_204_NO_CONTENT)
-    
-class DateRecordList(generics.ListCreateAPIView):
-    queryset = DateRecord.objects.all()
-    serializer_class = DateRecordSerializer
 
-
-class DateRecordUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
-    queryset = DateRecord.objects.all()
-    serializer_class = DateRecordSerializer
-    lookup_field = 'date'
-
-
-class DateRecordDeleteAll(generics.DestroyAPIView):
-    def delete(self, request, *args, **kwargs):
-        # Delete all Product objects
-        DateRecord.objects.all().delete()
-        return response.Response(status=status.HTTP_204_NO_CONTENT)
